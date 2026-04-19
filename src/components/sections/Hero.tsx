@@ -4,7 +4,7 @@ import { HeroPhoto3D } from '@/components/3d/HeroPhoto3D';
 import { MessageSquare, ArrowRight } from 'lucide-react';
 
 export function Hero() {
-  const roles = ["Software Engineer", "C++ Developer", "Python & ML Dev", "Web Developer"];
+  const roles = ["Software Engineer", "C++ Developer", "Python & ML Dev", "Web Developer", "React Developer", "Node.js Developer"];
 
   const scrollTo = (href: string) => {
     const el = document.querySelector(href);
@@ -37,7 +37,7 @@ export function Hero() {
           </div>
 
           <p className="text-base text-white/40 max-w-lg mb-10 leading-relaxed font-light">
-            I build things with C++, Python, and the web. Clean code, fast delivery — I'll keep refining until you're satisfied.
+            I build things with C++, Python, Node.js, React and the web. Clean code, fast delivery, I'll keep refining until you're satisfied.
           </p>
 
           <div className="flex flex-wrap gap-4">

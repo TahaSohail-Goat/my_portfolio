@@ -75,7 +75,7 @@ export function HeroPhoto3D() {
           animation: 'subtleFloat 4s ease-in-out infinite',
         }}
       >
-        <div className="text-xl font-display font-bold text-white">2+</div>
+        <div className="text-xl font-display font-bold text-white">1+</div>
         <div className="text-xs text-white/40 mt-0.5">Years Exp</div>
       </div>
 
@@ -89,7 +89,7 @@ export function HeroPhoto3D() {
           animationDelay: '2s',
         }}
       >
-        <div className="text-xl font-display font-bold text-white">100%</div>
+        <div className="text-xl font-display font-bold text-white">99%</div>
         <div className="text-xs text-white/40 mt-0.5">Satisfaction</div>
       </div>
 

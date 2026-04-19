@@ -133,7 +133,7 @@ export function LoadingScreen({ onComplete }: Props) {
                 marginTop: '-0.5rem',
               }}
             >
-              Software Engineer &nbsp;·&nbsp; Portfolio 2026
+              Software Engineer &nbsp;·&nbsp; Portfolio
             </motion.p>
 
             {/* Progress line */}
