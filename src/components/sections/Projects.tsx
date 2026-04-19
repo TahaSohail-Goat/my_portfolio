@@ -1,7 +1,7 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Github, ExternalLink } from 'lucide-react';
-
+import { ExternalLink } from 'lucide-react';
+import { FiGithub } from 'react-icons/fi';
 const projects = [
   {
     title: 'SeaRoute Navigator',
@@ -45,7 +45,7 @@ export function Projects() {
             onClick={() => window.open('https://github.com/TahaSohail-Goat', '_blank')}
             className="flex items-center gap-2 text-sm font-sans text-white/40 hover:text-white/80 transition-colors duration-300"
           >
-            View GitHub <Github className="w-4 h-4" />
+            View GitHub <FiGithub className="w-4 h-4" />
           </button>
         </motion.div>
 
@@ -104,7 +104,7 @@ export function Projects() {
                     style={{ border: '1px solid rgba(255,255,255,0.08)' }}
                     aria-label="View Source"
                   >
-                    <Github className="w-4 h-4" />
+                    <FiGithub className="w-4 h-4" />
                   </button>
                   <button
                     className="w-9 h-9 rounded-full flex items-center justify-center text-white/30 hover:text-white/80 transition-colors duration-200"

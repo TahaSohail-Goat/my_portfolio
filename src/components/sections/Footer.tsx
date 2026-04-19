@@ -1,12 +1,13 @@
-import { Github, Linkedin, Instagram, ArrowUp } from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
+import { FiGithub, FiLinkedin, FiInstagram } from 'react-icons/fi';
 
 export function Footer() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   const socials = [
-    { icon: Github, href: 'https://github.com/TahaSohail-Goat', label: 'GitHub' },
-    { icon: Linkedin, href: 'https://www.linkedin.com/in/taha-sohail-7b03b8320/', label: 'LinkedIn' },
-    { icon: Instagram, href: 'https://www.instagram.com/tahhaaaaaz/', label: 'Instagram' },
+    { icon: FiGithub, href: 'https://github.com/TahaSohail-Goat', label: 'GitHub' },
+    { icon: FiLinkedin, href: 'https://www.linkedin.com/in/taha-sohail-7b03b8320/', label: 'LinkedIn' },
+    { icon: FiInstagram, href: 'https://www.instagram.com/tahhaaaaaz/', label: 'Instagram' },
   ];
 
   return (
