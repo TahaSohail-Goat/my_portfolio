@@ -1,54 +1,60 @@
-import { useEffect, useRef } from 'react';
+import { useRef, useEffect } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Stars } from '@react-three/drei';
+import * as THREE from 'three';
 
-export function Background3D() {
-  const starsRef = useRef<{ x: number; y: number; size: number; opacity: number; delay: number; dur: number }[]>([]);
+function Starfield() {
+  const groupRef = useRef<THREE.Group>(null);
+  const mouse = useRef({ x: 0, y: 0 });
 
-  if (starsRef.current.length === 0) {
-    starsRef.current = Array.from({ length: 60 }).map(() => ({
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 1.5 + 0.5,
-      opacity: Math.random() * 0.3 + 0.05,
-      delay: Math.random() * 6,
-      dur: Math.random() * 5 + 4,
-    }));
-  }
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      // Normalize mouse coordinates to -1 to +1
+      mouse.current.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  useFrame((state, delta) => {
+    if (groupRef.current) {
+      // Natural slow drift
+      groupRef.current.rotation.y += delta * 0.03;
+      groupRef.current.rotation.x += delta * 0.015;
+
+      // Subtle parallax effect shifting towards mouse
+      groupRef.current.position.x += (mouse.current.x * 0.8 - groupRef.current.position.x) * 0.05;
+      groupRef.current.position.y += (mouse.current.y * 0.8 - groupRef.current.position.y) * 0.05;
+    }
+  });
 
   return (
-    <div className="fixed inset-0 z-[-1] bg-[#0a0a0a] pointer-events-none overflow-hidden">
-      {starsRef.current.map((star, i) => (
-        <div
-          key={i}
-          className="absolute rounded-full bg-white"
-          style={{
-            left: `${star.x}%`,
-            top: `${star.y}%`,
-            width: `${star.size}px`,
-            height: `${star.size}px`,
-            opacity: star.opacity,
-            animation: `starTwinkle ${star.dur}s ease-in-out infinite`,
-            animationDelay: `${star.delay}s`,
-          }}
-        />
-      ))}
+    <group ref={groupRef}>
+      {/* 
+        radius: Sphere radius where stars are created
+        depth: Depth of the stars sphere
+        count: Number of stars (particles)
+        factor: Size factor
+        saturation: Color saturation (0 = white/grayscale stars)
+        fade: Whether stars fade at edges
+        speed: Twinkle speed
+      */}
+      <Stars radius={100} depth={50} count={7000} factor={4} saturation={0} fade speed={1.5} />
+    </group>
+  );
+}
 
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px)
-          `,
-          backgroundSize: '80px 80px',
-        }}
-      />
-
-      <style>{`
-        @keyframes starTwinkle {
-          0%, 100% { opacity: var(--op, 0.1); }
-          50% { opacity: calc(var(--op, 0.1) * 3); }
-        }
-      `}</style>
+export function Background3D() {
+  return (
+    <div 
+      className="fixed inset-0 z-[-1] pointer-events-none"
+      style={{ background: 'linear-gradient(to bottom, #030303, #0a0a0a)' }}
+    >
+      <Canvas dpr={[1, 1.5]} camera={{ position: [0, 0, 1] }}>
+        <fog attach="fog" args={['#030303', 30, 90]} />
+        <Starfield />
+      </Canvas>
     </div>
   );
 }
