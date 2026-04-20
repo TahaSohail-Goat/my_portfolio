@@ -13,7 +13,7 @@ const projects = [
     title: 'Magical Pet Kingdom',
     description: 'Fantasy pet management system demonstrating OOP concepts — inheritance, polymorphism, encapsulation, and abstraction.',
     tech: ['C++', 'OOP', 'CLI'],
-    image: `${import.meta.env.BASE_URL}images/project-2-bg.png`,
+    image: `${import.meta.env.BASE_URL}images/magical-pet-kingdom-bg.png`,
   },
   {
     title: 'Tic-Tac-Toe SFML',

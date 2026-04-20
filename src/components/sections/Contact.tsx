@@ -8,21 +8,38 @@ export function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [sent, setSent] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
-    const subject = formData.get('subject');
-    const body = `Name: ${formData.get('name')}%0D%0AEmail: ${formData.get('email')}%0D%0A%0D%0A${formData.get('message')}`;
 
-    setTimeout(() => {
+    // TODO: Replace with your actual Web3Forms Access Key
+    // Get a free key at: https://web3forms.com
+    formData.append("access_key", "YOUR_ACCESS_KEY_HERE");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSent(true);
+        form.reset();
+        setTimeout(() => setSent(false), 4000);
+      } else {
+        console.error("Web3Forms Error:", data);
+        alert(data.message || "Failed to send message.");
+      }
+    } catch (error) {
+      console.error("Submission Error:", error);
+      alert("Something went wrong! Please try again later.");
+    } finally {
       setIsSubmitting(false);
-      setSent(true);
-      window.location.href = `mailto:tahasohail85@gmail.com?subject=${subject}&body=${body}`;
-      form.reset();
-      setTimeout(() => setSent(false), 4000);
-    }, 800);
+    }
   };
 
   const contactItems = [
