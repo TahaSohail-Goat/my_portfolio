@@ -3,15 +3,15 @@ import { useRef } from 'react';
 
 const skills = [
   { name: 'C++ / DSA', level: 95 },
-  { name: 'Python / ML', level: 90 },
-  { name: 'Web Development', level: 85 },
+  { name: 'Python / ML', level: 80 },
+  { name: 'Web Development', level: 90 },
 ];
 
 const stats = [
-  { value: '2+', label: 'Years Experience' },
-  { value: '100%', label: 'Client Satisfaction' },
-  { value: '24h', label: 'Fast Delivery' },
-  { value: '∞', label: 'Revisions' },
+  { value: '1', label: 'Years Experience' },
+  { value: '99.9%', label: 'Client Satisfaction' },
+  { value: '12h', label: 'Fast Delivery' },
+  { value: '10', label: 'Revisions' },
 ];
 
 export function About() {
@@ -39,8 +39,8 @@ export function About() {
             transition={{ duration: 0.7, delay: 0.15 }}
           >
             <p className="text-white/50 text-lg leading-relaxed mb-10 font-light">
-              I'm a Software Engineer from Pakistan with a strong foundation in C++, Python, and web development.
-              Whether it's a university project, a custom tool, or a full website — I take it seriously and deliver quality work.
+              I'm a Software Engineer from Pakistan with a strong foundation in C++, C , Javascript , Nodejs , Reactjs, Django, Flask, Python, SQL , MongoDB  and web development.
+              Whether it's a university project, a custom tool, or a full website. I take it seriously and deliver quality work.
               I won't stop until you're happy with the result.
             </p>
 
