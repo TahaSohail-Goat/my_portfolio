@@ -43,7 +43,7 @@ export function HeroPhoto3D() {
         }}
       >
         <img
-          src="/taha-photo.jpeg"
+          src="/taha-photo.png"
           alt="Taha Sohail"
           className="w-full h-full object-cover object-top"
         />
