@@ -4,7 +4,7 @@ import { HeroPhoto3D } from '@/components/3d/HeroPhoto3D';
 import { MessageSquare, ArrowRight } from 'lucide-react';
 
 export function Hero() {
-  const roles = ["Software Engineer", "C++ Developer", "Python & ML Dev", "Web Developer", "React Developer", "Node.js Developer"];
+  const roles = ["Software Engineer", "C++ Developer", "Python & ML Dev", "Web Developer", "React Developer", "Node.js Developer", "Mern Stack Developer"];
 
   const scrollTo = (href: string) => {
     const el = document.querySelector(href);

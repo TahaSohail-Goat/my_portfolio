@@ -5,6 +5,7 @@ import { Menu, X } from 'lucide-react';
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -12,12 +13,30 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    const sections = ['home', 'about', 'services', 'projects', 'contact'];
+    const observers: IntersectionObserver[] = [];
+
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
+        { threshold: 0.4 }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+
+    return () => observers.forEach(o => o.disconnect());
+  }, []);
+
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Services', href: '#services' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', href: '#home', id: 'home' },
+    { name: 'About', href: '#about', id: 'about' },
+    { name: 'Services', href: '#services', id: 'services' },
+    { name: 'Projects', href: '#projects', id: 'projects' },
+    { name: 'Contact', href: '#contact', id: 'contact' },
   ];
 
   const scrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -39,41 +58,87 @@ export function Navbar() {
         padding: '14px 0',
       } : { padding: '24px 0' }}
     >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+      <div
+        className="max-w-7xl mx-auto px-6"
+        style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'center' }}
+      >
+        {/* LEFT — Logo */}
         <a
           href="#home"
           onClick={e => scrollTo(e, '#home')}
           className="font-display font-bold text-xl text-white tracking-tight"
+          style={{ justifySelf: 'start' }}
         >
-          Taha<span className="text-white/25">.</span>
+          Taha<span style={{ color: 'rgba(255,255,255,0.4)' }}>.</span>
         </a>
 
-        <div className="hidden md:flex items-center gap-8">
-          {navLinks.map(link => (
-            <a
-              key={link.name}
-              href={link.href}
-              onClick={e => scrollTo(e, link.href)}
-              className="text-sm font-sans font-medium text-white/40 hover:text-white transition-colors duration-200 relative group"
-            >
-              {link.name}
-              <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-white/40 transition-all duration-300 group-hover:w-full" />
-            </a>
-          ))}
+        {/* CENTER — Nav Links pill container */}
+        <div
+          className="hidden md:flex items-center gap-1"
+          style={{
+            justifySelf: 'center',
+            background: 'rgba(255,255,255,0.07)',
+            border: '1px solid rgba(255,255,255,0.15)',
+            borderRadius: '100px',
+            padding: '5px 6px',
+          }}
+        >
+          {navLinks.map(link => {
+            const isActive = activeSection === link.id;
+            return (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={e => scrollTo(e, link.href)}
+                className="relative px-4 py-1.5 text-sm font-sans font-medium transition-all duration-200 rounded-full"
+                style={{
+                  color: isActive ? '#fff' : 'rgba(255,255,255,0.70)',
+                  background: isActive ? 'rgba(255,255,255,0.18)' : 'transparent',
+                  letterSpacing: '0.01em',
+                }}
+                onMouseEnter={e => {
+                  if (!isActive) (e.currentTarget as HTMLElement).style.color = '#fff';
+                }}
+                onMouseLeave={e => {
+                  if (!isActive) (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.70)';
+                }}
+              >
+                {link.name}
+              </a>
+            );
+          })}
+        </div>
+
+        {/* RIGHT — Hire Me CTA + mobile toggle */}
+        <div
+          className="flex items-center gap-3"
+          style={{ justifySelf: 'end' }}
+        >
           <button
             onClick={() => window.open('https://wa.me/923328885770', '_blank')}
-            className="px-5 py-2 rounded-full text-sm font-sans font-medium text-white/70 hover:text-white transition-all duration-200"
-            style={{ border: '1px solid rgba(255,255,255,0.12)' }}
-            onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)'}
-            onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)'}
+            className="hidden md:block px-5 py-2 rounded-full text-sm font-sans font-medium text-white/70 hover:text-white transition-all duration-200"
+            style={{ border: '1px solid rgba(255,255,255,0.28)', color: 'rgba(255,255,255,0.85)' }}
+            onMouseEnter={e => {
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.55)';
+              e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
+              e.currentTarget.style.color = '#fff';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.28)';
+              e.currentTarget.style.background = 'transparent';
+              e.currentTarget.style.color = 'rgba(255,255,255,0.85)';
+            }}
           >
             Hire Me
           </button>
-        </div>
 
-        <button className="md:hidden text-white/50 hover:text-white p-1" onClick={() => setMobileOpen(!mobileOpen)}>
-          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
+          <button
+            className="md:hidden text-white/50 hover:text-white p-1 transition-colors"
+            onClick={() => setMobileOpen(!mobileOpen)}
+          >
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
 
       <AnimatePresence>
@@ -91,7 +156,8 @@ export function Navbar() {
                   key={link.name}
                   href={link.href}
                   onClick={e => scrollTo(e, link.href)}
-                  className="text-base font-sans font-medium text-white/50 hover:text-white transition-colors"
+                  className="text-base font-sans font-medium transition-colors"
+                  style={{ color: activeSection === link.id ? '#fff' : 'rgba(255,255,255,0.72)' }}
                 >
                   {link.name}
                 </a>
