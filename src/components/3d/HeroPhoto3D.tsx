@@ -1,51 +1,20 @@
-import { useRef, useEffect } from 'react';
-
 export function HeroPhoto3D() {
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const card = cardRef.current;
-    if (!card) return;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = card.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const rotateX = ((e.clientY - centerY) / (rect.height / 2)) * -8;
-      const rotateY = ((e.clientX - centerX) / (rect.width / 2)) * 8;
-      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    };
-
-    const handleMouseLeave = () => {
-      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    card.addEventListener('mouseleave', handleMouseLeave);
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      card.removeEventListener('mouseleave', handleMouseLeave);
-    };
-  }, []);
-
   return (
     <div className="relative flex items-center justify-center">
       <div
-        ref={cardRef}
-        className="relative rounded-2xl overflow-hidden cursor-pointer"
+        className="relative rounded-2xl overflow-hidden"
         style={{
           width: 300,
           height: 400,
           border: '1px solid rgba(255,255,255,0.12)',
-          transition: 'transform 0.15s ease',
-          transformStyle: 'preserve-3d',
           boxShadow: '0 0 60px rgba(255,255,255,0.04), 0 30px 60px rgba(0,0,0,0.6)',
         }}
       >
         <img
-          src="/taha-photo.png"
+          src="/taha-photo.jpeg"
           alt="Taha Sohail"
           className="w-full h-full object-cover object-top"
+          loading="eager"
         />
 
         <div
