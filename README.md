@@ -1,6 +1,6 @@
-# Taha Sohail — Portfolio
+# Personal Portfolio
 
-A modern, interactive personal portfolio website for Taha Sohail, built with React, Vite, Tailwind CSS, and Three.js.
+A modern, interactive personal portfolio website built with React, Vite, Tailwind CSS, and Three.js.
 
 ## 🌟 Features
 
@@ -33,8 +33,8 @@ Make sure you have [Node.js](https://nodejs.org/) installed (version 16 or highe
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/YOUR-USERNAME/TahaSohail.git
-   cd TahaSohail
+   git clone https://github.com/YOUR-USERNAME/portfolio.git
+   cd portfolio
    ```
 
 2. Install dependencies:
@@ -62,25 +62,3 @@ This will generate an optimized build in the `dist` folder.
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome! Feel free to check the issues page.
-
-## 🔁 Rename deployed project on Vercel
-
-If your Vercel project still uses the old name (for example `my-portfolio-4ecr`), you can rename it to `tahasohail` using either a GitHub Action or a local script.
-
-Option A — GitHub Action (recommended if your repo is on GitHub):
-- Add a repository secret named `VERCEL_TOKEN` (create one at https://vercel.com/account/tokens).
-- The workflow `.github/workflows/rename-vercel.yml` is included; trigger it manually from the Actions tab and provide `project_search` (default `my-portfolio`) and `new_name` (`tahasohail`).
-
-Option B — Local PowerShell script:
-- Set your token in PowerShell for the session:
-   ```powershell
-   $env:VERCEL_TOKEN = "<your_token_here>"
-   ```
-- Run the script:
-   ```powershell
-   .\scripts\rename-vercel-project.ps1 -SearchName "my-portfolio" -Domain "my-portfolio-4ecr.vercel.app" -NewName "tahasohail"
-   ```
-
-Notes:
-- Vercel will normalize project names to lowercase for the `.vercel.app` domain. If `tahasohail` is already taken, Vercel may append a suffix.
-- I cannot rename the live project from this environment without a Vercel token or repository secret — the scripts/workflow above are prepared so you can run them securely.
