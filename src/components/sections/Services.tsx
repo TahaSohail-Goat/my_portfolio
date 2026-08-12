@@ -22,7 +22,7 @@ const services = [
   {
     id: '03',
     title: 'Web Development',
-    description: 'Modern, responsive websites — portfolios, landing pages and web apps.',
+    description: 'Modern, responsive websites: portfolios, landing pages and web apps.',
     icon: Globe,
   },
   {
@@ -72,10 +72,10 @@ export function Services() {
           transition={{ duration: 0.7 }}
           className="mb-16 flex flex-col items-center text-center"
         >
-          <p className="text-xs font-sans uppercase tracking-[0.3em] text-white/30 mb-3">What I Do</p>
+          <p className="text-xs font-sans uppercase tracking-[0.3em] text-white/70 mb-3">What I Do</p>
           <h2 className="text-3xl md:text-4xl font-display font-bold text-white">Services</h2>
           <div className="mt-3 w-10 h-px bg-white/20" />
-          <p className="mt-4 text-white/35 text-xs max-w-xs leading-relaxed">
+          <p className="mt-4 text-white/75 text-xs max-w-xs leading-relaxed">
             Click the arrows to orbit through all my services.
           </p>
         </motion.div>
@@ -324,11 +324,11 @@ export function Services() {
                   textAlign: 'center',
                   fontSize: '10.5px',
                   fontFamily: 'var(--font-sans)',
-                  color: 'rgba(255,255,255,0.35)',
+                  color: 'rgba(255,255,255,0.75)',
                   letterSpacing: '0.04em',
                 }}
               >
-                {services[active].id} / {String(TOTAL).padStart(2, '0')} — {services[active].title}
+                {services[active].id} / {String(TOTAL).padStart(2, '0')} · {services[active].title}
               </motion.span>
             </AnimatePresence>
           </div>
