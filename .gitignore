@@ -32,3 +32,7 @@ lerna-debug.log*
 *.sln
 *.sw?
 .DS_Store
+
+# Specification & redesign docs
+portfolio_redesign_spec.md
+*redesign*.md
