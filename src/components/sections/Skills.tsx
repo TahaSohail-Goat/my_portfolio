@@ -1,174 +1,17 @@
-import { useState, useRef, ComponentType } from 'react';
+import { useState, useRef } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { Share2, Layers, ArrowRight } from 'lucide-react';
 import {
-  SiCplusplus,
-  SiC,
-  SiPython,
-  SiJavascript,
-  SiTypescript,
-  SiReact,
-  SiNextdotjs,
-  SiVite,
-  SiHtml5,
-  SiTailwindcss,
-  SiFramer,
-  SiNodedotjs,
-  SiExpress,
-  SiDjango,
-  SiFlask,
-  SiMongodb,
-  SiMysql,
-  SiPostgresql,
-  SiGit,
-  SiGithub,
-} from 'react-icons/si';
-import { FaJava } from 'react-icons/fa6';
-import { VscCode } from 'react-icons/vsc';
-import {
-  Database,
-  Server,
-  BrainCircuit,
-  Workflow,
-  BarChart3,
-  GitBranch,
-  Code2,
-  Boxes,
-  Component as ComponentIcon,
-  ShieldCheck,
-  Cpu,
-  AppWindow,
-  Share2,
-  Layers,
-  ArrowRight,
-} from 'lucide-react';
+  SKILL_CATEGORIES,
+  SKILL_MAP,
+  isSkillRelated,
+  Skill,
+  SkillCategory,
+} from './skills/skills.data';
+import { ViewSwitcher, ViewMode } from './skills/ViewSwitcher';
+import { TechGraphView } from './skills/TechGraphView';
 
-/* ─── Types ───────────────────────────────────────────────── */
-type Skill = {
-  name: string;
-  icon: ComponentType<{ style?: React.CSSProperties; className?: string }>;
-  description?: string;
-  related?: string[];
-};
-
-type SkillCategory = {
-  id: string;
-  label: string;
-  color: string;
-  skills: Skill[];
-};
-
-/* ─── Skill Categories Data ────────────────────────────────── */
-const SKILL_CATEGORIES: SkillCategory[] = [
-  {
-    id: 'languages',
-    label: 'Languages',
-    color: '#00f5d4',
-    skills: [
-      { name: 'C++', icon: SiCplusplus, description: 'Core language for low-level systems, high performance algorithms, and competitive programming.', related: ['DSA', 'OOP', 'Systems', 'Algorithms'] },
-      { name: 'C', icon: SiC, description: 'Fundamental systems programming language used for memory management and OS concepts.', related: ['Systems', 'C++'] },
-      { name: 'Python', icon: SiPython, description: 'Versatile language used for AI/ML, automation scripts, backend services, and data analysis.', related: ['ML/AI', 'Django', 'Flask', 'Automation', 'Data Analysis'] },
-      { name: 'JavaScript', icon: SiJavascript, description: 'Primary language for modern interactive web development across client and server.', related: ['React', 'Node.js', 'Express', 'Vite', 'HTML / CSS'] },
-      { name: 'TypeScript', icon: SiTypescript, description: 'Strongly typed JavaScript superset for scalable, type-safe application architecture.', related: ['React', 'Next.js', 'Node.js'] },
-      { name: 'Java', icon: FaJava, description: 'Object-oriented language used for enterprise desktop software and architectural design patterns.', related: ['JavaFX', 'OOP', 'Design Patterns'] },
-      { name: 'SQL', icon: Database, description: 'Declarative language for relational database querying, schema design, and data manipulation.', related: ['PostgreSQL', 'MySQL'] },
-    ],
-  },
-  {
-    id: 'frontend',
-    label: 'Frontend',
-    color: '#38bdf8',
-    skills: [
-      { name: 'React', icon: SiReact, description: 'Component-driven UI library for building dynamic, state-driven web applications.', related: ['Next.js', 'Vite', 'TypeScript', 'Tailwind', 'Framer Motion', 'JavaScript'] },
-      { name: 'Next.js', icon: SiNextdotjs, description: 'Production React framework for server-side rendering, static generation, and routing.', related: ['React', 'TypeScript', 'Node.js'] },
-      { name: 'Vite', icon: SiVite, description: 'Next-generation frontend tooling and lightning-fast HMR module bundler.', related: ['React', 'JavaScript'] },
-      { name: 'HTML / CSS', icon: SiHtml5, description: 'Semantic HTML5 structure and responsive CSS3 layout, flexbox, and grid styling.', related: ['React', 'Tailwind'] },
-      { name: 'Tailwind', icon: SiTailwindcss, description: 'Utility-first CSS framework for rapid, responsive, and custom UI design systems.', related: ['React', 'HTML / CSS'] },
-      { name: 'Framer Motion', icon: SiFramer, description: 'Production-ready motion library for fluid React micro-interactions and transitions.', related: ['React'] },
-    ],
-  },
-  {
-    id: 'backend',
-    label: 'Backend',
-    color: '#a78bfa',
-    skills: [
-      { name: 'Node.js', icon: SiNodedotjs, description: 'Asynchronous event-driven JavaScript runtime for scalable server-side applications.', related: ['Express', 'JavaScript', 'TypeScript', 'REST APIs', 'MongoDB'] },
-      { name: 'Express', icon: SiExpress, description: 'Minimalist web framework for building Node.js RESTful APIs and middleware.', related: ['Node.js', 'REST APIs', 'MongoDB', 'JavaScript'] },
-      { name: 'Django', icon: SiDjango, description: 'High-level Python web framework encouraging rapid development and clean design.', related: ['Python', 'REST APIs'] },
-      { name: 'Flask', icon: SiFlask, description: 'Micro Python web framework for lightweight REST microservices and APIs.', related: ['Python', 'REST APIs'] },
-      { name: 'REST APIs', icon: Server, description: 'Architectural style for designing networked HTTP APIs with clean endpoints and JSON payloads.', related: ['Express', 'Django', 'Node.js', 'Flask'] },
-    ],
-  },
-  {
-    id: 'databases',
-    label: 'Databases',
-    color: '#f59e0b',
-    skills: [
-      { name: 'MongoDB', icon: SiMongodb, description: 'NoSQL document database for flexible JSON-like document storage and aggregation.', related: ['Node.js', 'Express'] },
-      { name: 'MySQL', icon: SiMysql, description: 'Popular open-source relational database management system featuring robust SQL query execution.', related: ['SQL'] },
-      { name: 'PostgreSQL', icon: SiPostgresql, description: 'Advanced open-source object-relational database with strong ACID compliance and complex queries.', related: ['SQL'] },
-    ],
-  },
-  {
-    id: 'ai',
-    label: 'AI / ML',
-    color: '#34d399',
-    skills: [
-      { name: 'ML/AI', icon: BrainCircuit, description: 'Machine learning fundamentals, predictive modeling, and intelligent agent algorithms.', related: ['Python', 'Data Analysis'] },
-      { name: 'Automation', icon: Workflow, description: 'Automated workflow scripts, task scheduling, and system orchestration.', related: ['Python'] },
-      { name: 'Data Analysis', icon: BarChart3, description: 'Data processing, feature extraction, and statistical trend visualization.', related: ['Python', 'ML/AI'] },
-    ],
-  },
-  {
-    id: 'concepts',
-    label: 'CS Fundamentals',
-    color: '#fb7185',
-    skills: [
-      { name: 'DSA', icon: GitBranch, description: 'Data Structures & Algorithms: trees, graphs, heaps, dynamic programming, and efficiency optimization.', related: ['C++', 'Algorithms', 'OOP'] },
-      { name: 'Algorithms', icon: Code2, description: 'Graph traversal (Dijkstra), sorting, searching, and space/time complexity analysis.', related: ['DSA', 'C++'] },
-      { name: 'OOP', icon: Boxes, description: 'Object-Oriented Design: encapsulation, inheritance, polymorphism, and abstraction.', related: ['C++', 'Java', 'Design Patterns', 'SOLID'] },
-      { name: 'Design Patterns', icon: ComponentIcon, description: 'Software design patterns including Factory, Strategy, Observer, and Singleton.', related: ['OOP', 'SOLID', 'Java'] },
-      { name: 'SOLID', icon: ShieldCheck, description: 'The five fundamental principles of object-oriented class design for maintainable software.', related: ['OOP', 'Design Patterns'] },
-      { name: 'Systems', icon: Cpu, description: 'Computer architecture, memory allocation, process threads, and OS concepts.', related: ['C', 'C++'] },
-    ],
-  },
-  {
-    id: 'tools',
-    label: 'Tools',
-    color: '#94a3b8',
-    skills: [
-      { name: 'Git', icon: SiGit, description: 'Distributed version control system for tracking source code changes and branch management.', related: ['GitHub', 'VS Code'] },
-      { name: 'GitHub', icon: SiGithub, description: 'Cloud repository platform for collaborative software development, code reviews, and CI/CD.', related: ['Git'] },
-      { name: 'VS Code', icon: VscCode, description: 'Primary code editor configured with extensions, debugging pipelines, and terminal integration.', related: ['Git'] },
-      { name: 'JavaFX', icon: AppWindow, description: 'Java GUI framework for building custom-styled desktop application user interfaces.', related: ['Java', 'OOP'] },
-    ],
-  },
-];
-
-/* ─── Fast Map Lookup for Skill Objects ────────────────────── */
-const SKILL_MAP = new Map<string, { skill: Skill; category: SkillCategory }>();
-for (const cat of SKILL_CATEGORIES) {
-  for (const s of cat.skills) {
-    SKILL_MAP.set(s.name, { skill: s, category: cat });
-  }
-}
-
-/* ─── Helper: Bidirectional Relationship Lookup ─────────────── */
-function isSkillRelated(targetName: string, activeName: string | null): boolean {
-  if (!activeName) return false;
-  if (targetName === activeName) return false;
-
-  const target = SKILL_MAP.get(targetName)?.skill;
-  const active = SKILL_MAP.get(activeName)?.skill;
-
-  // Direction 1: active lists target
-  if (active?.related?.includes(targetName)) return true;
-  // Direction 2: target lists active
-  if (target?.related?.includes(activeName)) return true;
-
-  return false;
-}
-
-/* ─── Technology Card Component ───────────────────────────── */
+/* ─── Technology Card Component (Ecosystem View) ───────────── */
 interface CardProps {
   skill: Skill;
   categoryColor: string;
@@ -177,13 +20,23 @@ interface CardProps {
   onClick: (s: string) => void;
 }
 
-function TechnologyCard({ skill, categoryColor, activeSkillName, onHover, onClick }: CardProps) {
+function TechnologyCard({
+  skill,
+  categoryColor,
+  activeSkillName,
+  onHover,
+  onClick,
+}: CardProps) {
   const isActive = activeSkillName === skill.name;
   const isRelated = isSkillRelated(skill.name, activeSkillName);
   const isDimmed = activeSkillName !== null && !isActive && !isRelated;
 
   const IconComp = skill.icon;
-  const accentColor = isActive ? 'var(--accent-neon)' : isRelated ? categoryColor : 'rgba(255,255,255,0.7)';
+  const accentColor = isActive
+    ? 'var(--accent-neon)'
+    : isRelated
+    ? categoryColor
+    : 'rgba(255,255,255,0.7)';
 
   return (
     <button
@@ -213,7 +66,8 @@ function TechnologyCard({ skill, categoryColor, activeSkillName, onHover, onClic
           ? `${categoryColor}14`
           : 'rgba(255,255,255,0.02)',
         cursor: 'pointer',
-        transition: 'border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease',
+        transition:
+          'border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease',
         opacity: isDimmed ? 0.35 : 1,
         boxShadow: isActive
           ? '0 0 20px rgba(0,245,212,0.28)'
@@ -228,7 +82,9 @@ function TechnologyCard({ skill, categoryColor, activeSkillName, onHover, onClic
           height: '28px',
           color: accentColor,
           transition: 'all 0.2s ease',
-          transform: isActive ? 'translateY(-2px) scale(1.08)' : 'translateY(0) scale(1)',
+          transform: isActive
+            ? 'translateY(-2px) scale(1.08)'
+            : 'translateY(0) scale(1)',
           filter: isActive
             ? 'drop-shadow(0 0 8px rgba(0,245,212,0.7))'
             : isRelated
@@ -264,12 +120,14 @@ interface PanelProps {
   onSelectSkill: (s: string) => void;
 }
 
-function RelationshipDetailPanel({ activeSkillName, onSelectSkill }: PanelProps) {
+function RelationshipDetailPanel({
+  activeSkillName,
+  onSelectSkill,
+}: PanelProps) {
   const activeData = activeSkillName ? SKILL_MAP.get(activeSkillName) : undefined;
   const activeSkill = activeData?.skill;
   const activeCategory = activeData?.category;
 
-  // Find all connected skills (both direct and inverse)
   const connectedSkills: { skill: Skill; category: SkillCategory }[] = [];
   if (activeSkillName) {
     for (const [name, data] of SKILL_MAP.entries()) {
@@ -312,7 +170,12 @@ function RelationshipDetailPanel({ activeSkillName, onSelectSkill }: PanelProps)
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            style={{ display: 'flex', flexDirection: 'column', gap: '16px', height: '100%' }}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '16px',
+              height: '100%',
+            }}
           >
             {/* Header: Icon + Name + Category badge */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
@@ -330,7 +193,13 @@ function RelationshipDetailPanel({ activeSkillName, onSelectSkill }: PanelProps)
                   boxShadow: '0 0 16px rgba(0,245,212,0.15)',
                 }}
               >
-                {<activeSkill.icon style={{ width: '26px', height: '26px', color: 'var(--accent-neon)' }} />}
+                <activeSkill.icon
+                  style={{
+                    width: '26px',
+                    height: '26px',
+                    color: 'var(--accent-neon)',
+                  }}
+                />
               </div>
 
               <div>
@@ -375,12 +244,32 @@ function RelationshipDetailPanel({ activeSkillName, onSelectSkill }: PanelProps)
               {activeSkill.description}
             </p>
 
-            <div style={{ width: '100%', height: '1px', background: 'rgba(255,255,255,0.07)', margin: '4px 0' }} />
+            <div
+              style={{
+                width: '100%',
+                height: '1px',
+                background: 'rgba(255,255,255,0.07)',
+                margin: '4px 0',
+              }}
+            />
 
             {/* Connected Ecosystem Section */}
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '12px' }}>
-                <Share2 style={{ width: '12px', height: '12px', color: 'var(--accent-neon)' }} />
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  marginBottom: '12px',
+                }}
+              >
+                <Share2
+                  style={{
+                    width: '12px',
+                    height: '12px',
+                    color: 'var(--accent-neon)',
+                  }}
+                />
                 <span
                   style={{
                     fontFamily: 'var(--font-mono)',
@@ -395,66 +284,98 @@ function RelationshipDetailPanel({ activeSkillName, onSelectSkill }: PanelProps)
               </div>
 
               {connectedSkills.length > 0 ? (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  {connectedSkills.map(({ skill: connSkill, category: connCat }) => {
-                    const ConnIcon = connSkill.icon;
-                    return (
-                      <button
-                        key={connSkill.name}
-                        onClick={() => onSelectSkill(connSkill.name)}
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'space-between',
-                          padding: '8px 12px',
-                          borderRadius: '8px',
-                          background: 'rgba(255,255,255,0.03)',
-                          border: `1px solid ${connCat.color}35`,
-                          cursor: 'pointer',
-                          transition: 'all 0.2s ease',
-                          textAlign: 'left',
-                        }}
-                        onMouseEnter={e => {
-                          const el = e.currentTarget as HTMLElement;
-                          el.style.background = 'rgba(0,245,212,0.08)';
-                          el.style.borderColor = 'var(--accent-neon)';
-                        }}
-                        onMouseLeave={e => {
-                          const el = e.currentTarget as HTMLElement;
-                          el.style.background = 'rgba(255,255,255,0.03)';
-                          el.style.borderColor = `${connCat.color}35`;
-                        }}
-                      >
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                          <ConnIcon style={{ width: '18px', height: '18px', color: connCat.color }} />
-                          <span
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '8px',
+                  }}
+                >
+                  {connectedSkills.map(
+                    ({ skill: connSkill, category: connCat }) => {
+                      const ConnIcon = connSkill.icon;
+                      return (
+                        <button
+                          key={connSkill.name}
+                          onClick={() => onSelectSkill(connSkill.name)}
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            padding: '8px 12px',
+                            borderRadius: '8px',
+                            background: 'rgba(255,255,255,0.03)',
+                            border: `1px solid ${connCat.color}35`,
+                            cursor: 'pointer',
+                            transition: 'all 0.2s ease',
+                            textAlign: 'left',
+                          }}
+                          onMouseEnter={e => {
+                            const el = e.currentTarget as HTMLElement;
+                            el.style.background = 'rgba(0,245,212,0.08)';
+                            el.style.borderColor = 'var(--accent-neon)';
+                          }}
+                          onMouseLeave={e => {
+                            const el = e.currentTarget as HTMLElement;
+                            el.style.background = 'rgba(255,255,255,0.03)';
+                            el.style.borderColor = `${connCat.color}35`;
+                          }}
+                        >
+                          <div
                             style={{
-                              fontFamily: 'var(--font-mono)',
-                              fontSize: '11px',
-                              color: '#ffffff',
-                              fontWeight: 500,
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '10px',
                             }}
                           >
-                            {connSkill.name}
-                          </span>
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                          <span
+                            <ConnIcon
+                              style={{
+                                width: '18px',
+                                height: '18px',
+                                color: connCat.color,
+                              }}
+                            />
+                            <span
+                              style={{
+                                fontFamily: 'var(--font-mono)',
+                                fontSize: '11px',
+                                color: '#ffffff',
+                                fontWeight: 500,
+                              }}
+                            >
+                              {connSkill.name}
+                            </span>
+                          </div>
+                          <div
                             style={{
-                              fontFamily: 'var(--font-mono)',
-                              fontSize: '9px',
-                              color: connCat.color,
-                              opacity: 0.8,
-                              textTransform: 'uppercase',
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '6px',
                             }}
                           >
-                            {connCat.label}
-                          </span>
-                          <ArrowRight style={{ width: '11px', height: '11px', color: 'rgba(255,255,255,0.3)' }} />
-                        </div>
-                      </button>
-                    );
-                  })}
+                            <span
+                              style={{
+                                fontFamily: 'var(--font-mono)',
+                                fontSize: '9px',
+                                color: connCat.color,
+                                opacity: 0.8,
+                                textTransform: 'uppercase',
+                              }}
+                            >
+                              {connCat.label}
+                            </span>
+                            <ArrowRight
+                              style={{
+                                width: '11px',
+                                height: '11px',
+                                color: 'rgba(255,255,255,0.3)',
+                              }}
+                            />
+                          </div>
+                        </button>
+                      );
+                    }
+                  )}
                 </div>
               ) : (
                 <p
@@ -470,7 +391,7 @@ function RelationshipDetailPanel({ activeSkillName, onSelectSkill }: PanelProps)
             </div>
           </motion.div>
         ) : (
-          /* Default state */
+          /* Default state when no technology is active */
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -519,7 +440,7 @@ function RelationshipDetailPanel({ activeSkillName, onSelectSkill }: PanelProps)
                 maxWidth: '240px',
               }}
             >
-              Hover or click any technology card to explore its description and connected stack relationships.
+              Hover or click any technology card or graph node to explore its description and connected stack relationships.
             </p>
           </motion.div>
         )}
@@ -532,6 +453,29 @@ function RelationshipDetailPanel({ activeSkillName, onSelectSkill }: PanelProps)
 export function Skills() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-80px' });
+
+  // View state: ALWAYS defaults to 'ecosystem' on first visit
+  const [viewMode, setViewMode] = useState<ViewMode>(() => {
+    try {
+      const saved = localStorage.getItem('skills_view_mode');
+      if (saved === 'graph' || saved === 'ecosystem') {
+        return saved;
+      }
+    } catch {
+      // localStorage fallback
+    }
+    return 'ecosystem';
+  });
+
+  const handleViewChange = (mode: ViewMode) => {
+    setViewMode(mode);
+    try {
+      localStorage.setItem('skills_view_mode', mode);
+    } catch {
+      // ignore quota / security errors
+    }
+  };
+
   const [selectedSkillName, setSelectedSkillName] = useState<string | null>(null);
   const [hoveredSkillName, setHoveredSkillName] = useState<string | null>(null);
 
@@ -547,135 +491,189 @@ export function Skills() {
     <section id="skills" className="py-24 relative z-10" ref={ref}>
       <div className="max-w-7xl mx-auto px-6">
 
-        {/* ── Header ─── */}
+        {/* ── Header with Heading & View Switcher ─── */}
         <motion.div
           initial={{ opacity: 0, y: 22 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          className="mb-14"
+          className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6"
         >
-          <p className="text-mono-label mb-3">technology ecosystem</p>
-          <h2 className="text-h1 font-display text-white">
-            Skills &{' '}
-            <span style={{ color: 'var(--accent-neon)' }}>Stack</span>
-          </h2>
-          <div className="mt-4 w-12 h-px" style={{ background: 'var(--accent-neon)', opacity: 0.4 }} />
-          <p
-            style={{
-              marginTop: '16px',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '11px',
-              color: 'rgba(255,255,255,0.70)',
-              letterSpacing: '0.05em',
-            }}
-          >
-            hover a technology card to reveal its ecosystem relationships
-          </p>
+          <div>
+            <p className="text-mono-label mb-3">technology ecosystem</p>
+            <h2 className="text-h1 font-display text-white">
+              Skills &{' '}
+              <span style={{ color: 'var(--accent-neon)' }}>Stack</span>
+            </h2>
+            <div className="mt-4 w-12 h-px" style={{ background: 'var(--accent-neon)', opacity: 0.4 }} />
+            <p
+              style={{
+                marginTop: '14px',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '11px',
+                color: 'rgba(255,255,255,0.70)',
+                letterSpacing: '0.05em',
+              }}
+            >
+              {viewMode === 'ecosystem'
+                ? 'hover a technology card to reveal its ecosystem relationships'
+                : 'explore interactive technical relationship graph & connections'}
+            </p>
+          </div>
+
+          {/* View Switcher Control */}
+          <div className="shrink-0 self-start md:self-end">
+            <ViewSwitcher currentView={viewMode} onViewChange={handleViewChange} />
+          </div>
         </motion.div>
 
-        {/* ── 2-Column Layout (Grid on Left, Detail Panel on Right) ─── */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.15 }}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"
-        >
-          {/* Left Column: Skill Categories & Tech Cards (col-span-8) */}
-          <div className="lg:col-span-8 flex flex-col gap-8">
-            {SKILL_CATEGORIES.map((category, catIdx) => {
-              const isCategoryActive =
-                activeSkillName !== null &&
-                category.skills.some(
-                  s => s.name === activeSkillName || isSkillRelated(s.name, activeSkillName)
-                );
+        {/* ── Dynamic View Container with Smooth Transition ─── */}
+        <AnimatePresence mode="wait">
+          {viewMode === 'ecosystem' ? (
+            /* ── 1. ECOSYSTEM VIEW (Default Grid Layout) ─── */
+            <motion.div
+              key="ecosystem-view"
+              id="panel-ecosystem"
+              role="tabpanel"
+              aria-labelledby="tab-ecosystem"
+              initial={{ opacity: 0, scale: 0.98, y: 8 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.98, y: -8 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"
+            >
+              {/* Left Column: Skill Categories & Tech Cards (col-span-8) */}
+              <div className="lg:col-span-8 flex flex-col gap-8">
+                {SKILL_CATEGORIES.map((category, catIdx) => {
+                  const isCategoryActive =
+                    activeSkillName !== null &&
+                    category.skills.some(
+                      s => s.name === activeSkillName || isSkillRelated(s.name, activeSkillName)
+                    );
 
-              const isCategoryDimmed = activeSkillName !== null && !isCategoryActive;
+                  const isCategoryDimmed = activeSkillName !== null && !isCategoryActive;
 
-              return (
-                <motion.div
-                  key={category.id}
-                  initial={{ opacity: 0, y: 18 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: catIdx * 0.06 }}
-                  style={{
-                    opacity: isCategoryDimmed ? 0.45 : 1,
-                    transition: 'opacity 0.25s ease',
-                  }}
-                >
-                  {/* Category Header */}
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '10px',
-                      marginBottom: '12px',
-                    }}
-                  >
-                    <span
+                  return (
+                    <motion.div
+                      key={category.id}
+                      initial={{ opacity: 0, y: 18 }}
+                      animate={isInView ? { opacity: 1, y: 0 } : {}}
+                      transition={{ duration: 0.6, delay: catIdx * 0.05 }}
                       style={{
-                        width: '6px',
-                        height: '6px',
-                        borderRadius: '50%',
-                        background: isCategoryActive ? 'var(--accent-neon)' : category.color,
-                        boxShadow: isCategoryActive
-                          ? '0 0 10px var(--accent-neon)'
-                          : `0 0 8px ${category.color}`,
-                        flexShrink: 0,
-                      }}
-                    />
-                    <span
-                      style={{
-                        fontFamily: 'var(--font-mono)',
-                        fontSize: '11px',
-                        letterSpacing: '0.12em',
-                        textTransform: 'uppercase',
-                        color: isCategoryActive ? 'var(--accent-neon)' : category.color,
-                        fontWeight: isCategoryActive ? 600 : 500,
-                        transition: 'color 0.2s ease',
+                        opacity: isCategoryDimmed ? 0.45 : 1,
+                        transition: 'opacity 0.25s ease',
                       }}
                     >
-                      {category.label}
-                    </span>
-                    <div
-                      style={{
-                        flex: 1,
-                        height: '1px',
-                        background: isCategoryActive
-                          ? 'linear-gradient(90deg, rgba(0,245,212,0.5), transparent)'
-                          : `linear-gradient(90deg, ${category.color}30, transparent)`,
-                        transition: 'background 0.2s ease',
-                      }}
-                    />
-                  </div>
+                      {/* Category Header */}
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '10px',
+                          marginBottom: '12px',
+                        }}
+                      >
+                        <span
+                          style={{
+                            width: '6px',
+                            height: '6px',
+                            borderRadius: '50%',
+                            background: isCategoryActive
+                              ? 'var(--accent-neon)'
+                              : category.color,
+                            boxShadow: isCategoryActive
+                              ? '0 0 10px var(--accent-neon)'
+                              : `0 0 8px ${category.color}`,
+                            flexShrink: 0,
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontFamily: 'var(--font-mono)',
+                            fontSize: '11px',
+                            letterSpacing: '0.12em',
+                            textTransform: 'uppercase',
+                            color: isCategoryActive
+                              ? 'var(--accent-neon)'
+                              : category.color,
+                            fontWeight: isCategoryActive ? 600 : 500,
+                            transition: 'color 0.2s ease',
+                          }}
+                        >
+                          {category.label}
+                        </span>
+                        <div
+                          style={{
+                            flex: 1,
+                            height: '1px',
+                            background: isCategoryActive
+                              ? 'linear-gradient(90deg, rgba(0,245,212,0.5), transparent)'
+                              : `linear-gradient(90deg, ${category.color}30, transparent)`,
+                            transition: 'background 0.2s ease',
+                          }}
+                        />
+                      </div>
 
-                  {/* Technology Cards Grid */}
-                  <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2.5">
-                    {category.skills.map(skill => (
-                      <TechnologyCard
-                        key={skill.name}
-                        skill={skill}
-                        categoryColor={category.color}
-                        activeSkillName={activeSkillName}
-                        onHover={setHoveredSkillName}
-                        onClick={handleSelectSkill}
-                      />
-                    ))}
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
+                      {/* Technology Cards Grid */}
+                      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2.5">
+                        {category.skills.map(skill => (
+                          <TechnologyCard
+                            key={skill.name}
+                            skill={skill}
+                            categoryColor={category.color}
+                            activeSkillName={activeSkillName}
+                            onHover={setHoveredSkillName}
+                            onClick={handleSelectSkill}
+                          />
+                        ))}
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
 
-          {/* Right Column: Sticky Relationship Detail Panel (col-span-4) */}
-          <div className="lg:col-span-4 w-full self-stretch min-h-full">
-            <RelationshipDetailPanel
-              activeSkillName={activeSkillName}
-              onSelectSkill={handleSelectSkill}
-            />
-          </div>
-        </motion.div>
+              {/* Right Column: Sticky Relationship Detail Panel (col-span-4) */}
+              <div className="lg:col-span-4 w-full self-stretch min-h-full">
+                <RelationshipDetailPanel
+                  activeSkillName={activeSkillName}
+                  onSelectSkill={handleSelectSkill}
+                />
+              </div>
+            </motion.div>
+          ) : (
+            /* ── 2. GRAPH VIEW (Interactive Obsidian-style Graph) ─── */
+            <motion.div
+              key="graph-view"
+              id="panel-graph"
+              role="tabpanel"
+              aria-labelledby="tab-graph"
+              initial={{ opacity: 0, scale: 0.98, y: 8 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.98, y: -8 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"
+            >
+              {/* Left Column: Interactive Graph Visualization (col-span-8) */}
+              <div className="lg:col-span-8 w-full">
+                <TechGraphView
+                  selectedSkillName={selectedSkillName}
+                  onSelectSkill={handleSelectSkill}
+                  hoveredSkillName={hoveredSkillName}
+                  onHoverSkill={setHoveredSkillName}
+                />
+              </div>
 
-        {/* ── Mobile Floating Relationship HUD (visible on mobile / touch) ─── */}
+              {/* Right Column: Sticky Relationship Detail Panel (col-span-4) */}
+              <div className="lg:col-span-4 w-full self-stretch min-h-full">
+                <RelationshipDetailPanel
+                  activeSkillName={activeSkillName}
+                  onSelectSkill={handleSelectSkill}
+                />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* ── Mobile Floating Relationship HUD ─── */}
         <div className="block lg:hidden fixed bottom-6 left-4 right-4 z-50 pointer-events-none">
           <AnimatePresence>
             {activeSkillName && (
@@ -690,7 +688,8 @@ export function Skills() {
                   backdropFilter: 'blur(16px)',
                   WebkitBackdropFilter: 'blur(16px)',
                   border: '1px solid rgba(0,245,212,0.3)',
-                  boxShadow: '0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(0,245,212,0.15)',
+                  boxShadow:
+                    '0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(0,245,212,0.15)',
                 }}
               >
                 {(() => {
@@ -707,7 +706,13 @@ export function Skills() {
                             border: '1px solid rgba(0,245,212,0.3)',
                           }}
                         >
-                          <IconC style={{ width: '20px', height: '20px', color: 'var(--accent-neon)' }} />
+                          <IconC
+                            style={{
+                              width: '20px',
+                              height: '20px',
+                              color: 'var(--accent-neon)',
+                            }}
+                          />
                         </div>
                         <div className="truncate">
                           <p className="font-display font-bold text-sm text-white truncate">
@@ -719,7 +724,7 @@ export function Skills() {
                         </div>
                       </div>
                       <span className="font-mono text-[10px] text-white/50 shrink-0">
-                        Tap card to view
+                        Tap node/card
                       </span>
                     </>
                   );
@@ -735,7 +740,9 @@ export function Skills() {
             <div key={cat.id}>
               <h3>{cat.label}</h3>
               <ul>
-                {cat.skills.map(s => <li key={s.name}>{s.name}</li>)}
+                {cat.skills.map(s => (
+                  <li key={s.name}>{s.name}</li>
+                ))}
               </ul>
             </div>
           ))}
