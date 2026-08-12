@@ -19,7 +19,7 @@ export function Typewriter({
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    let timer: NodeJS.Timeout;
+    let timer: ReturnType<typeof setTimeout> | undefined;
     const currentWord = words[currentWordIndex];
 
     if (isDeleting) {
