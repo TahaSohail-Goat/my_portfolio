@@ -32,6 +32,8 @@ lerna-debug.log*
 *.sln
 *.sw?
 .DS_Store
+.playwright-cli/
+output/
 
 # Specification & redesign docs
 portfolio_redesign_spec.md

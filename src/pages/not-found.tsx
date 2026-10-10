@@ -1,21 +1,18 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { AlertCircle } from "lucide-react";
-
+import { ArrowLink } from "@/components/studio/Shell";
 export default function NotFound() {
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">
-      <Card className="w-full max-w-md mx-4">
-        <CardContent className="pt-6">
-          <div className="flex mb-4 gap-2">
-            <AlertCircle className="h-8 w-8 text-red-500" />
-            <h1 className="text-2xl font-bold text-gray-900">404 Page Not Found</h1>
-          </div>
-
-          <p className="mt-4 text-sm text-gray-600">
-            Did you forget to add the page to the router?
-          </p>
-        </CardContent>
-      </Card>
-    </div>
+    <section className="page-header not-found">
+      <span className="eyebrow">404 / UNCHARTED TERRITORY</span>
+      <h1>
+        A little
+        <br />
+        <em>off course.</em>
+      </h1>
+      <p className="page-intro">
+        This page isn’t part of the map. There’s plenty to explore back at the
+        beginning.
+      </p>
+      <ArrowLink href="/">Back to the index</ArrowLink>
+    </section>
   );
 }

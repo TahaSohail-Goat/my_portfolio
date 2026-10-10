@@ -1,0 +1,75 @@
+.site-entrance {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  overflow: hidden;
+  background: #d5ff00;
+  color: #23291d;
+  clip-path: inset(0);
+  outline: none;
+}
+.entrance-top {
+  position: absolute;
+  top: clamp(22px, 4vh, 45px);
+  left: 4vw;
+  right: 4vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  z-index: 2;
+}
+.entrance-monogram { font-size: 30px; font-weight: 700; letter-spacing: -0.07em; font-style: italic; }
+.entrance-wordmark {
+  position: absolute;
+  inset: 13% 0 auto;
+  text-align: center;
+  font-size: clamp(100px, 28vw, 520px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.07em;
+  color: transparent;
+  -webkit-text-stroke: 1px #23291d30;
+  user-select: none;
+}
+.entrance-scene { position: absolute; inset: 8% 0 14%; pointer-events: none; }
+.entrance-bottom {
+  position: absolute;
+  bottom: clamp(24px, 5vh, 60px);
+  left: 4vw;
+  right: 4vw;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: end;
+  gap: 20px;
+}
+.entrance-edition { font-size: 9px; line-height: 1.65; font-weight: 600; letter-spacing: 0.06em; }
+.entrance-caption { text-align: center; width: 220px; }
+.entrance-title { display: flex; justify-content: center; gap: 6px; font-size: 22px; font-weight: 700; letter-spacing: -0.05em; margin: 0 0 9px; }
+.entrance-title em { font-family: Georgia, serif; font-style: normal; font-weight: 400; }
+.entrance-status { font-size: 8px; font-weight: 600; letter-spacing: 0.12em; }
+.entrance-track { height: 2px; background: #23291d25; margin-top: 15px; overflow: hidden; }
+.entrance-track span { height: 100%; display: block; background: #23291d; transform-origin: left; }
+.entrance-skip { justify-self: end; background: transparent; border: 0; border-bottom: 1px solid #23291d60; color: inherit; font-size: 9px; font-weight: 600; padding: 10px 0; cursor: pointer; letter-spacing: 0.04em; }
+.entrance-skip:focus-visible { outline: 2px solid #23291d; outline-offset: 7px; }
+.entrance-flat-car, .entrance-warming { position: absolute; top: 46%; left: 50%; width: clamp(220px, 30vw, 440px); margin-left: clamp(-220px, -15vw, -110px); }
+.entrance-flat-car svg, .entrance-warming svg { width: 100%; height: auto; }
+.entrance-warming { opacity: 0.4; }
+@media (max-width: 600px) {
+  .entrance-top { font-size: 8px; left: 6vw; right: 6vw; }
+  .entrance-wordmark { top: 26%; font-size: 32vw; }
+  .entrance-scene { inset: 14% -28% 20%; }
+  .entrance-bottom { grid-template-columns: 1fr 1fr; left: 6vw; right: 6vw; row-gap: 28px; }
+  .entrance-caption { grid-column: 1 / -1; grid-row: 1; justify-self: center; }
+  .entrance-edition { font-size: 8px; }
+}
+@media (max-height: 450px) {
+  .entrance-top { top: 14px; }
+  .entrance-wordmark { top: 2%; font-size: 50vh; }
+  .entrance-bottom { bottom: 14px; }
+  .entrance-caption { width: 180px; }
+  .entrance-title { font-size: 18px; margin-bottom: 4px; }
+  .entrance-track { margin-top: 7px; }
+}

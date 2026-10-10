@@ -1,0 +1,72 @@
+.immersive-worlds { isolation: isolate; border-top: 1px solid var(--line); }
+.immersive-worlds .immersive-world {
+  min-height: 740px;
+  min-width: 0;
+  padding: clamp(38px, 5vw, 75px) 5vw 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  transition: background 0.4s;
+}
+.immersive-worlds .immersive-world:hover,
+.immersive-worlds .immersive-world:focus-visible { background: #d5ff0005; }
+.immersive-worlds .immersive-world:focus-visible { outline: 2px solid var(--orange); outline-offset: -3px; }
+.immersive-worlds .world-heading { z-index: 2; position: relative; flex: none; transition: opacity 0.3s; }
+.immersive-worlds .world-heading .eyebrow { margin-bottom: 32px; }
+.immersive-worlds .world-heading h2 { font-size: clamp(52px, 6vw, 112px); line-height: 0.96; letter-spacing: -0.065em; }
+.immersive-worlds .world-heading h2 em { font-size: 0.91em; letter-spacing: -0.065em; white-space: nowrap; }
+.immersive-worlds .world-scene {
+  position: relative;
+  height: clamp(270px, 24vw, 370px);
+  margin: -5px -3vw -8px;
+  flex: 1 0 270px;
+  min-height: 0;
+  pointer-events: none;
+}
+.world-scene > div:not(.world-scene-floor) { position: absolute !important; inset: 0; }
+.world-scene-floor {
+  position: absolute;
+  left: 18%; right: 18%; bottom: 16%; height: 18%;
+  background: radial-gradient(ellipse, #070d0860, transparent 70%);
+  transform: rotate(-6deg);
+}
+.world-scene-label {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  text-align: center; font-family: Consolas, monospace;
+  color: #a9b295; font-size: 8px; letter-spacing: 0.1em;
+}
+.immersive-worlds .world-copy { position: relative; z-index: 2; flex: none; transition: opacity 0.3s; }
+.immersive-worlds .world-copy p {
+  position: static; font-size: 13px; line-height: 1.65;
+  max-width: 340px; margin: 0 0 22px; color: #c6ccb8;
+}
+.world-destination { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.world-destination > span:first-child { font-size: 9px; font-weight: 600; letter-spacing: 0.09em; }
+.immersive-worlds .world-arrow { position: static; width: 44px; height: 44px; flex: none; }
+.immersive-world[data-entering="true"] .world-heading,
+.immersive-world[data-entering="true"] .world-copy { opacity: 0.2; }
+.world-static { display: flex; align-items: center; justify-content: center; perspective: 600px; }
+.world-static-terminal { width: 64%; max-width: 340px; border: 1px solid #81916a; border-radius: 10px; background: #141c13; padding: 18px; transform: rotateY(-15deg) rotateX(8deg); box-shadow: 8px 15px 0 #080e0860; }
+.world-static-terminal > span { font: 9px Consolas, monospace; color: #a4ad95; border-bottom: 1px solid #47533c; display: block; padding-bottom: 10px; }
+.world-static-terminal pre { font: 12px/1.75 Consolas, monospace; color: #d5ff00; padding-top: 12px; margin: 0; white-space: pre-wrap; }
+.world-static-core { position: relative; width: 180px; height: 180px; transform-style: preserve-3d; transform: rotateX(25deg) rotateY(-25deg); }
+.world-static-core i { position: absolute; inset: 0; border: 1px solid #d5ff0080; transform: rotateX(60deg) rotateY(25deg); }
+.world-static-core i:nth-child(2) { transform: rotateY(60deg) rotateZ(45deg); }
+.world-static-core i:nth-child(3) { transform: rotateX(-45deg) rotateZ(20deg); }
+.world-static-core > span { position: absolute; inset: 35px; border-radius: 50%; background: radial-gradient(circle at 30% 25%, #edf0e4, #697956 40%, #1b2916 65%, #d5ff00); box-shadow: 0 0 35px #d5ff0018; }
+@media (min-width: 1600px) {
+  .immersive-worlds .immersive-world { min-height: 820px; }
+}
+@media (min-width: 601px) and (max-width: 1024px) {
+  .immersive-worlds .immersive-world { min-height: 650px; padding: 45px 4vw 35px; gap: 18px; }
+  .immersive-worlds .world-heading h2 { font-size: 6.1vw; }
+  .immersive-worlds .world-scene { margin-left: -3vw; margin-right: -3vw; flex-basis: 240px; }
+  .immersive-worlds .world-copy p { font-size: 12px; }
+}
+@media (max-width: 600px) {
+  .immersive-worlds .immersive-world { min-height: 680px; padding: 40px 6vw 30px; gap: 20px; }
+  .immersive-worlds .world-heading .eyebrow { margin-bottom: 27px; }
+  .immersive-worlds .world-heading h2 { font-size: clamp(44px, 12.5vw, 72px); }
+  .immersive-worlds .world-scene { margin: 0 -4vw; height: 260px; flex-basis: 260px; }
+  .immersive-worlds .world-copy p { max-width: 310px; font-size: 12px; }
+}

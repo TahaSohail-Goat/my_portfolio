@@ -13,10 +13,10 @@
         letter-spacing: -6px;
       }
       .letter-t {
-        fill: #ffffff;
+        fill: #d5ff00;
       }
       .period {
-        fill: rgba(255, 255, 255, 0.25);
+        fill: #edf0e4;
       }
     </style>
   </defs>

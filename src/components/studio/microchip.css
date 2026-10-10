@@ -1,0 +1,10 @@
+.lab-graphic.microchip-preview { display: block; min-width: 0; touch-action: pan-y; perspective: none; border-radius: 8px; }
+.microchip-preview > div { position: absolute !important; inset: 0; }
+.microchip-preview:focus-visible { outline: 1px solid #d5ff00; outline-offset: 8px; }
+.microchip-fallback { display: grid; place-items: center; perspective: 700px; pointer-events: none; }
+.microchip-fallback > div { position: relative; width: 180px; height: 180px; transform-style: preserve-3d; transform: rotateX(55deg) rotateZ(-35deg); }
+.microchip-fallback span { position: absolute; inset: 0; display: grid; place-items: center; border-radius: 8px; }
+.microchip-static-base { background: #172115; border: 2px solid #76886a; box-shadow: 0 12px 0 #111b10; transform: translateZ(-38px); }
+.microchip-static-board { background-color: #24361f; background-image: repeating-linear-gradient(0deg, transparent 0 18px, #a5c64c55 19px 20px), repeating-linear-gradient(90deg, transparent 0 18px, #a5c64c55 19px 20px); border: 1px solid #d5ff0080; }
+.microchip-fallback .microchip-static-die { inset: 50px; border: 3px solid #d5ff00; background: #314323; color: #d5ff00; font: 700 27px Consolas, monospace; transform: translateZ(12px); box-shadow: 0 0 30px #d5ff0028; }
+.microchip-fallback .microchip-static-lid { background: linear-gradient(135deg, #e0e4d8, #6e7c61 35%, #d0d8c0 60%, #4f6043); border: 1px solid #dce4d1; transform: translateZ(82px) translateY(-20px); color: #25331d; font: 10px Consolas, monospace; letter-spacing: 0.08em; }
