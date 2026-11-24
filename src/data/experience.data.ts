@@ -45,9 +45,9 @@ export const timelineItems: TimelineItem[] = [
     title: 'Disaster Management MIS',
     organization: 'Academic Project · FAST-NUCES',
     description:
-      'Built a full-stack Smart Disaster Response Management Information System with real-time emergency tracking, resource allocation, and multi-role authentication. First end-to-end MERN stack application.',
+      'Built a full-stack Smart Disaster Response Management Information System with real-time emergency tracking, resource allocation, and role-based authentication.',
     type: 'project',
-    technologies: ['React', 'Next.js', 'Node.js', 'Express', 'MongoDB'],
+    technologies: ['React', 'Next.js', 'Node.js', 'Express', 'SQL Server'],
   },
   {
     id: 'fast-nuces',

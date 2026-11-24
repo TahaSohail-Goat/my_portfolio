@@ -5,7 +5,7 @@ import { ArrowUpRight, ArrowUp, X, Pause, Play } from "lucide-react";
 import { useMotionSettings } from "./Motion";
 import { Contours } from "./Contours";
 import { ProjectArt } from "./ProjectArt";
-import { projects } from "@/data/projects.data";
+import { featuredProjects } from "@/data/projects.data";
 const links = [
   { href: "/", label: "Home" },
   { href: "/work", label: "The work" },
@@ -124,16 +124,7 @@ export function Shell({ children }: { children: ReactNode }) {
   useEffect(() => {
     setOpen(false);
     if (!window.location.hash) window.scrollTo({ top: 0, behavior: "instant" });
-    const titles: Record<string, string> = {
-      "/": "Code. Craft. Curiosity",
-      "/work": "Selected work",
-      "/about": "Profile",
-      "/lab": "Interactive lab",
-      "/contact": "Let’s talk",
-      "/resume": "Résumé",
-    };
-    const project = projects.find((p) => location === `/work/${p.id}`);
-    document.title = `${titles[location] ?? project?.title ?? "Page not found"} — Taha Sohail`;
+    document.title = "Taha Sohail";
   }, [location]);
   useEffect(() => {
     if (!open) return;
@@ -254,7 +245,7 @@ export function Shell({ children }: { children: ReactNode }) {
               <div>
                 <img src="/taha-photo.png" alt="" />
               </div>
-              {projects.slice(0, 3).map((p) => (
+              {featuredProjects.slice(0, 3).map((p) => (
                 <ProjectArt key={p.id} id={p.id} />
               ))}
             </div>

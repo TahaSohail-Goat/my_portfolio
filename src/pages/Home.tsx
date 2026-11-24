@@ -20,7 +20,7 @@ import {
   ArrowUpRight,
   MoveUpRight,
 } from "lucide-react";
-import { projects } from "@/data/projects.data";
+import { featuredProjects, projects } from "@/data/projects.data";
 import { Reveal, useMotionSettings } from "@/components/studio/Motion";
 import { ProjectArt } from "@/components/studio/ProjectArt";
 import { Contours } from "@/components/studio/Contours";
@@ -154,7 +154,6 @@ function Hero() {
             width="1254"
             height="1254"
           />
-          <span className="portrait-scan-line" aria-hidden="true" />
           <button
             className="portrait-lock"
             aria-pressed={locked}
@@ -313,11 +312,11 @@ function ProjectExhibition() {
   });
   useMotionValueEvent(scrollYProgress, "change", (p) => {
     if (enabled && desktop)
-      setActive(Math.min(projects.length - 1, Math.floor(p * projects.length)));
+      setActive(Math.min(featuredProjects.length - 1, Math.floor(p * featuredProjects.length)));
   });
-  const p = projects[active];
+  const p = featuredProjects[active];
   function select(index: number) {
-    const next = (index + projects.length) % projects.length;
+    const next = (index + featuredProjects.length) % featuredProjects.length;
     setActive(next);
     if (enabled && desktop && ref.current) {
       const el = ref.current;
@@ -326,7 +325,7 @@ function ProjectExhibition() {
           el.getBoundingClientRect().top +
           window.scrollY +
           ((el.offsetHeight - window.innerHeight) * (next + 0.18)) /
-            projects.length,
+            featuredProjects.length,
         behavior: "instant",
       });
     }
@@ -346,7 +345,7 @@ function ProjectExhibition() {
             </h2>
           </div>
           <Link href="/work" className="exhibition-all">
-            ALL PROJECTS (04)
+            ALL PROJECTS ({String(projects.length).padStart(2, "0")})
             <ArrowUpRight size={18} />
           </Link>
         </div>
@@ -356,7 +355,7 @@ function ProjectExhibition() {
             role="group"
             aria-label="Choose a project"
           >
-            {projects.map((project, i) => (
+            {featuredProjects.map((project, i) => (
               <button
                 key={project.id}
                 aria-pressed={active === i}
@@ -398,7 +397,7 @@ function ProjectExhibition() {
               </div>
               <span className="exhibition-counter">
                 0{active + 1}
-                <small>/ 04</small>
+                <small>/ {String(featuredProjects.length).padStart(2, "0")}</small>
               </span>
             </div>
             <div className="exhibition-bottom">

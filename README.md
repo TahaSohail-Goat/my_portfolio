@@ -22,8 +22,8 @@ No hosting or deployment is required. Fonts, portrait, résumé, and procedural 
 ## Pages
 
 - `/` — 3D drifting-car entrance, oversized portrait hero with cursor-driven color reveal, scroll-driven particle monogram, word-by-word manifesto, interactive Logic / In Motion and Beyond / The Code panels, pinned project exhibition, toolkit marquee, an animated microchip lab preview, and contact.
-- `/work` — filterable project collection with pointer-responsive cards and original abstract artwork.
-- `/work/:id` — all four projects, their original descriptions, highlights, technology stacks, architecture, and GitHub repositories.
+- `/work` — project collection with category filters, pointer-responsive cards, and custom covers.
+- `/work/:id` — project detail pages with descriptions, highlights, technology stacks, architecture notes, and available repository and demo links. Sabaq AI leads the selected-work showcase.
 - `/about` — portrait, principles, searchable skills and related technologies, education and project timeline.
 - `/lab` — sculpture assembly, rotation speed, angle, material, wireframe, orbit controls, and reset.
 - `/contact` — contact details, service selection, validated local email-draft preparation, and useful questions.

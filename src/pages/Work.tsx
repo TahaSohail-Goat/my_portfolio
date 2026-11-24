@@ -1,25 +1,26 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { projects } from "@/data/projects.data";
+import { projectCategories, projects } from "@/data/projects.data";
 import { ProjectCard } from "@/components/studio/ProjectArt";
 import { Reveal, useMotionSettings } from "@/components/studio/Motion";
 import { ArrowLink } from "@/components/studio/Shell";
-const filters = ["All projects", "Full stack", "Architecture", "C++ & systems"];
+const filters = [
+  { label: "All projects", matches: projects },
+  ...projectCategories.map((category) => ({
+    label: category,
+    matches: projects.filter((project) => project.categories.includes(category)),
+  })),
+];
+
 export default function Work() {
-  const [filter, setFilter] = useState(0);
+  const [activeFilter, setActiveFilter] = useState(0);
   const { enabled } = useMotionSettings();
-  const filtered = projects.filter(
-    (p, i) =>
-      filter === 0 ||
-      (filter === 1 && i === 0) ||
-      (filter === 2 && i === 1) ||
-      (filter === 3 && p.technologies.includes("C++")),
-  );
+  const filtered = filters[activeFilter].matches;
   return (
     <>
       <section className="page-header">
         <Reveal>
-          <span className="eyebrow">THE COLLECTION / 2023 — 2024</span>
+          <span className="eyebrow">THE COLLECTION / 2023 — TILL NOW</span>
           <div className="page-header-row">
             <h1>
               Ideas. Systems.
@@ -27,7 +28,7 @@ export default function Work() {
               <em>Things that work.</em>
             </h1>
             <span className="page-header-note">
-              04 ENGINEERING STUDIES
+              {String(projects.length).padStart(2, "0")} ENGINEERING STUDIES
               <br />
               BUILT WITH CURIOSITY & INTENTION
             </span>
@@ -40,15 +41,16 @@ export default function Work() {
         </Reveal>
       </section>
       <div className="filter-bar" role="group" aria-label="Filter projects">
-        {filters.map((f, i) => (
+        {filters.map(({ label, matches }, i) => (
           <button
-            key={f}
-            className={`filter-button ${filter === i ? "active" : ""}`}
-            aria-pressed={filter === i}
-            onClick={() => setFilter(i)}
+            key={label}
+            type="button"
+            className={`filter-button ${activeFilter === i ? "active" : ""}`}
+            aria-pressed={activeFilter === i}
+            onClick={() => setActiveFilter(i)}
           >
-            {f}
-            <small> {i === 0 ? "04" : i === 3 ? "02" : "01"}</small>
+            {label}
+            <small> {String(matches.length).padStart(2, "0")}</small>
           </button>
         ))}
       </div>

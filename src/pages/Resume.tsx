@@ -86,12 +86,7 @@ export default function Resume() {
               <h3>Selected projects</h3>
               {projects.map((p) => (
                 <div className="resume-entry" key={p.id}>
-                  <span>
-                    {p.id === "disaster-management" || p.id === "cdiem"
-                      ? "2024"
-                      : "2023"}{" "}
-                    / Academic project
-                  </span>
+                  <span>{p.context ?? p.category}</span>
                   <h4>
                     <Link href={`/work/${p.id}`}>
                       {p.title}

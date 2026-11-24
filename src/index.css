@@ -723,14 +723,6 @@ main:focus {
 .selected-work:not(.has-motion) .work-track .project-card {
   width: auto;
 }
-.art-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(#ffffff06 1px, transparent 1px),
-    linear-gradient(90deg, #ffffff06 1px, transparent 1px);
-  background-size: 40px 40px;
-}
 .art-caption {
   position: absolute;
   z-index: 5;
@@ -748,209 +740,73 @@ main:focus {
   letter-spacing: -0.015em;
   margin-top: 5px;
 }
-.art-marker {
-  position: absolute;
-  top: 6%;
-  left: 6%;
-  font-size: 7px;
-  letter-spacing: 0.16em;
-  color: #ffffff70;
+.art-photo {
+  background:
+    linear-gradient(to top, #101711e6, transparent 55%),
+    var(--project-photo) var(--project-photo-position, 50% 50%) / cover no-repeat #101711;
 }
-.art-coordinate {
-  position: absolute;
-  right: 6%;
-  bottom: 10%;
-  font-size: 8px;
-  line-height: 1.8;
-  color: #d7e4c0;
+.art-photo .art-caption {
+  max-width: 55%;
+}
+.art-traffic-intersection {
+  --project-photo: url("/images/traffic-intersection-cover.webp");
+  --project-photo-position: 70% 50%;
+}
+.art-redline {
+  --project-photo: url("/images/redline-cover.webp");
+  --project-photo-position: 75% 50%;
+}
+.art-civicpulse {
+  --project-photo: url("/images/civicpulse-cover.webp");
+  --project-photo-position: 62% 50%;
+}
+.art-cat-connect {
+  --project-photo: url("/images/cat-connect-cover.webp");
+  --project-photo-position: 62% 50%;
+}
+.art-worksync {
+  background: #000 url("/images/worksync-cover.webp") center / contain no-repeat;
+}
+.art-flake {
+  background: #000 url("/images/flake-cover.webp") center / contain no-repeat;
+}
+.art-tasbih-prestige {
+  --project-photo: url("/images/tasbih-prestige-cover.webp");
+  --project-photo-position: 62% 50%;
+}
+.art-rahbar {
+  background: #000 url("/images/rahbar-cover.webp") center / contain no-repeat;
+}
+.art-sabaq-ai {
+  --project-photo: url("/images/sabaq-ai-study.webp");
+  --project-photo-position: 68% 50%;
+}
+.art-studify {
+  --project-photo: url("/images/studify-study.webp");
+  --project-photo-position: 65% 50%;
+}
+.art-fleetpulse-ai {
+  --project-photo: url("/images/fleetpulse-turbofan.webp");
+  --project-photo-position: 65% 50%;
+}
+.art-eco28 {
+  --project-photo: url("/images/eco28-residence.webp");
 }
 .art-disaster-management {
-  background: radial-gradient(ellipse at 65% 35%, #4a593d, #263125 75%);
-}
-.radar {
-  position: absolute;
-  width: 55%;
-  aspect-ratio: 1;
-  left: 40%;
-  top: -5%;
-  border-radius: 50%;
-  border: 1px solid #c4d6a733;
-}
-.radar i {
-  position: absolute;
-  inset: 12%;
-  border: 1px solid #c4d6a733;
-  border-radius: 50%;
-}
-.radar i:nth-child(2) {
-  inset: 24%;
-}
-.radar i:nth-child(3) {
-  inset: 36%;
-}
-.radar i:nth-child(4) {
-  inset: 48%;
-}
-.radar-sweep {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    transparent 65%,
-    #c4d6a724 95%,
-    #c4d6a755 100%
-  );
-  animation: spin 12s linear infinite;
-}
-.radar-cross {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(90deg, transparent 49.9%, #c4d6a722 50%, transparent 50.1%),
-    linear-gradient(transparent 49.9%, #c4d6a722 50%, transparent 50.1%);
-}
-.radar-dot {
-  position: absolute;
-  width: 7px;
-  height: 7px;
-  background: #d6e9ae;
-  border-radius: 50%;
-  box-shadow: 0 0 15px #d6e9ae77;
-}
-.dot-a {
-  left: 28%;
-  top: 27%;
-}
-.dot-b {
-  left: 63%;
-  top: 55%;
-}
-.dot-c {
-  left: 75%;
-  top: 23%;
+  --project-photo: url("/images/disaster-response-center.webp");
+  --project-photo-position: 66% 50%;
 }
 .art-cdiem {
-  background: radial-gradient(ellipse at 70% 15%, #4a3c62, #272236 75%);
-}
-.architecture-blocks {
-  position: absolute;
-  left: 33%;
-  top: 10%;
-  width: 40%;
-  height: 70%;
-  transform: rotateX(22deg) rotateY(-30deg) rotateZ(-8deg);
-  transform-style: preserve-3d;
-}
-.architecture-block {
-  position: absolute;
-  width: 90%;
-  height: 50%;
-  border: 1px solid #c2a5e455;
-  background: linear-gradient(130deg, #9376aa35, #50406350);
-  backdrop-filter: blur(4px);
-  padding: 15px;
-  box-shadow: 12px 14px 0 #0002;
-  transform: skewY(-7deg);
-}
-.architecture-block b {
-  display: block;
-  font-size: 40px;
-  font-weight: 400;
-  letter-spacing: -0.06em;
-  color: #c9addf;
-  margin-top: 10px;
-}
-.architecture-block span {
-  font-size: 7px;
-  letter-spacing: 0.15em;
-  color: #d0bde0;
-}
-.architecture-block i {
-  position: absolute;
-  right: 15px;
-  bottom: 15px;
-  width: 25px;
-  height: 25px;
-  border: 1px solid #c9addf55;
-}
-.block-0 {
-  left: 0;
-  top: 0;
-  z-index: 3;
-}
-.block-1 {
-  left: 15%;
-  top: 30%;
-  z-index: 2;
-}
-.block-2 {
-  left: 30%;
-  top: 60%;
-  z-index: 1;
+  --project-photo: url('/images/cdiem-forensics.webp');
+  --project-photo-position: 60% 50%;
 }
 .art-searoute {
-  background: radial-gradient(ellipse at 60% 20%, #38626a, #152d39 80%);
-}
-.sea-map {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-.route-path {
-  animation: dash 20s linear infinite;
+  --project-photo: url("/images/searoute-harbor.webp");
+  --project-photo-position: 72% 50%;
 }
 .art-magical-pet {
-  background: radial-gradient(ellipse at 65% 40%, #906949, #3c2c20 80%);
-}
-.pet-orbits {
-  position: absolute;
-  left: 40%;
-  top: 4%;
-  width: 50%;
-  aspect-ratio: 1;
-}
-.pet-orbits i {
-  position: absolute;
-  inset: 12%;
-  border: 1px solid #f4d8a280;
-  border-radius: 50%;
-  transform: rotateX(55deg) rotateZ(35deg);
-}
-.pet-orbits i:nth-child(2) {
-  transform: rotateY(55deg) rotateZ(-35deg);
-}
-.pet-orbits i:nth-child(3) {
-  transform: rotateY(55deg) rotateZ(65deg);
-}
-.pet-gem {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  font-size: 170px;
-  color: #f1d4a0;
-  text-shadow: 0 0 45px #f2c67966;
-  animation: gem 8s ease-in-out infinite;
-}
-.pet-orbits > span {
-  position: absolute;
-  font-size: 7px;
-  letter-spacing: 0.15em;
-  color: #f1d4a0;
-}
-.pet-orbits > span:nth-last-child(3) {
-  left: 0;
-  top: 30%;
-}
-.pet-orbits > span:nth-last-child(2) {
-  right: 0;
-  top: 55%;
-}
-.pet-orbits > span:nth-last-child(1) {
-  left: 20%;
-  bottom: 10%;
+  --project-photo: url("/images/magical-pet-woodland.webp");
+  --project-photo-position: 72% 50%;
 }
 .capabilities {
   border-top: 1px solid var(--line);
@@ -1132,6 +988,9 @@ main:focus {
   gap: 8px;
 }
 .back-top {
+  display: grid;
+  place-items: center;
+  padding: 0;
   width: 45px;
   height: 45px;
   border: 1px solid var(--line);
@@ -1290,28 +1149,8 @@ main:focus {
 .work-index-grid .project-art {
   aspect-ratio: 1.25;
 }
-.work-index-grid .radar {
-  top: 8%;
-  width: 70%;
-  left: 25%;
-}
-.work-index-grid .architecture-blocks {
-  top: 18%;
-  left: 25%;
-  width: 45%;
-  height: 55%;
-}
-.work-index-grid .pet-orbits {
-  left: 30%;
-  top: 8%;
-  width: 65%;
-}
 .work-index-grid .art-caption {
   bottom: 9%;
-}
-.work-index-grid .sea-map {
-  top: 0;
-  height: 85%;
 }
 .project-detail-hero {
   padding-bottom: 50px;
@@ -1330,7 +1169,7 @@ main:focus {
 }
 .project-meta {
   display: grid;
-  grid-template-columns: 1.5fr 2fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
   gap: 30px;
   margin-top: 55px;
   border-top: 1px solid var(--line);
@@ -1363,9 +1202,6 @@ main:focus {
 }
 .detail-art .art-caption {
   font-size: 13px;
-}
-.detail-art .art-marker {
-  font-size: 10px;
 }
 .project-overview {
   display: grid;
@@ -1871,9 +1707,6 @@ html[data-motion="off"] *::after {
   .detail-art .art-caption span {
     font-size: 24px;
   }
-  .detail-art .art-marker {
-    font-size: 7px;
-  }
   .project-overview {
     grid-template-columns: 1fr;
     gap: 30px;
@@ -1904,16 +1737,8 @@ html[data-motion="off"] *::after {
     width: 10vw;
     height: 10vw;
   }
-  .project-art .radar {
-    width: 70%;
-    left: 27%;
-    top: 5%;
-  }
   .art-caption span {
     font-size: 22px;
-  }
-  .pet-gem {
-    font-size: 120px;
   }
   .hero-scroll:where(html[data-motion="off"] *) {
     height: auto;
@@ -3125,22 +2950,6 @@ textarea::placeholder {
   }
   .oop-branches div {
     font-size: 15px;
-  }
-  .detail-art .radar {
-    width: 85%;
-    top: 6%;
-    left: 20%;
-  }
-  .detail-art .pet-orbits {
-    width: 80%;
-    left: 17%;
-    top: 7%;
-  }
-  .detail-art .architecture-blocks {
-    left: 20%;
-    top: 15%;
-    width: 55%;
-    height: 55%;
   }
 }
 @media (max-width: 380px) {

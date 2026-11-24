@@ -31,7 +31,7 @@
   line-height: 1;
   letter-spacing: -0.07em;
   color: transparent;
-  -webkit-text-stroke: 1px #23291d30;
+  -webkit-text-stroke: clamp(2px, 0.22vw, 4px) #38441c;
   user-select: none;
 }
 .entrance-scene { position: absolute; inset: 8% 0 14%; pointer-events: none; }

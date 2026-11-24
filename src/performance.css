@@ -163,13 +163,8 @@ h3 {
   height: 100%;
   aspect-ratio: 1;
 }
-.menu-gallery .art-caption,
-.menu-gallery .art-marker,
-.menu-gallery .art-coordinate {
+.menu-gallery .art-caption {
   display: none;
-}
-.menu-gallery .architecture-blocks {
-  transform: scale(0.75) rotate(-10deg);
 }
 .menu-link-list {
   position: relative;
@@ -349,15 +344,6 @@ h3 {
 .performance-portrait[data-locked="true"] .portrait-reveal {
   clip-path: circle(100% at 50% 50%);
 }
-.portrait-scan-line {
-  position: absolute;
-  left: 15%;
-  right: 5%;
-  top: 45%;
-  height: 1px;
-  background: #d5ff0040;
-  pointer-events: none;
-}
 .portrait-lock {
   position: absolute;
   bottom: 18%;
@@ -484,7 +470,7 @@ h3 {
   transform: rotate(-8deg);
 }
 .manifesto-signoff p {
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.7;
   color: #60654d;
 }
@@ -1324,9 +1310,6 @@ h3 {
     padding: 10px;
     gap: 10px;
   }
-  .portrait-scan-line {
-    top: 40%;
-  }
   .performance-bottom {
     bottom: 22px;
     left: 5vw;
@@ -1386,7 +1369,7 @@ h3 {
     font-size: 50px;
   }
   .manifesto-signoff p {
-    font-size: 8px;
+    font-size: 10px;
   }
   .manifesto-signoff a {
     width: 100%;
@@ -1481,9 +1464,6 @@ h3 {
   .exhibition-art .art-caption span {
     font-size: 17px;
     max-width: 180px;
-  }
-  .exhibition-art .art-coordinate {
-    display: none;
   }
   .exhibition-open {
     bottom: 14px;
@@ -1708,23 +1688,6 @@ h3 {
   .is-animated .exhibition-scroll-label {
     margin-top: 20px;
   }
-  .is-animated .exhibition-art .radar,
-  .is-animated .exhibition-art .pet-orbits {
-    width: min(50%, 38svh);
-    left: 48%;
-    top: 3%;
-  }
-  .is-animated .exhibition-art .architecture-blocks {
-    width: 32%;
-    left: 48%;
-  }
-  .is-animated .exhibition-art .architecture-block b {
-    font-size: clamp(22px, 4svh, 40px);
-    margin-top: 4px;
-  }
-  .is-animated .exhibition-art .art-coordinate {
-    display: none;
-  }
   .is-animated .exhibition-art .art-caption {
     left: 5%;
     bottom: 22px;
@@ -1864,9 +1827,6 @@ h3 {
 @media (min-width: 900px) and (max-height: 640px) {
   .is-animated .exhibition-heading .eyebrow {
     font-size: 8px;
-  }
-  .is-animated .exhibition-art .art-marker {
-    display: none;
   }
   .is-animated .exhibition-open {
     bottom: 14px;

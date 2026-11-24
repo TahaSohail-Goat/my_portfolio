@@ -5,12 +5,29 @@ import { ProjectArt } from "@/components/studio/ProjectArt";
 import { Reveal } from "@/components/studio/Motion";
 import NotFound from "./not-found";
 const introductions: Record<string, string> = {
+  "traffic-intersection":
+    "An intersection is a concurrency problem. This simulation models how two controllers share updates, let emergency vehicles through first, and keep parking queues from blocking traffic.",
+  "redline": "The circuit is a graph you can race through. The same route logic powers the strategy tools and the interactive Algorithm Lab.",
+  "civicpulse": "When every report lands in the same inbox, urgent problems are easy to miss. CivicPulse helps operators sort incoming reports by what needs attention.",
+  "cat-connect": "Shelters coordinate care across people and shifts. Cat Connect keeps each animal’s records and next steps in one place.",
+  "worksync": "WorkSync brings office operations together. My contribution focused on how people sign in and how their activity is recorded.",
+  "flake": "FLAKE brings common university tasks into a single portal, with dashboards shaped around what each campus role needs to do.",
+  "tasbih-prestige": "Tasbih Prestige keeps counting simple and offers suggestions when users want help choosing what to recite.",
+  "rahbar": "RAHBAR helps students trace answers back to the university’s actual policy text. It declines questions its source material cannot answer.",
+  "sabaq-ai":
+    "A useful study answer needs to match the student’s actual curriculum. Sabaq AI searches textbook and past-paper material, shows where an answer came from, and declines to guess when its sources do not support one.",
+  studify:
+    "Students already have the material they need, but finding the right explanation inside a pile of notes takes time. Studify turns those notes into a private, searchable study companion with cited answers and practice tools.",
+  "fleetpulse-ai":
+    "FleetPulse AI explores how changes in simulated engine sensor readings can help estimate how many operating cycles an engine has left. Its predictions and scheduling scenarios are for research and demonstration only.",
+  eco28:
+    "The Eco 28 studio site pairs architecture photography with a guided visual experience. A 3D-led opening leads into focused collections for interiors, materials, models, studio work, and project inquiries.",
   "disaster-management":
     "When information is scattered, coordination becomes the hardest problem. This project brings emergency tracking, resource allocation, and relief coordination into one full-stack system.",
   cdiem:
-    "Good architecture makes complexity manageable. CDIEM explores that idea through a modular desktop application, explicit layer boundaries, and design patterns with a purpose.",
+    "An investigation needs a clear record of what was collected, who handled it, and how each decision was made. CDIEM gives officers, forensic analysts, and supervisors a shared workflow for tracking cases and verifying evidence.",
   searoute:
-    "A sea route is a graph problem hiding in plain sight. SeaRoute Navigator models ports and their connections, then finds an efficient path using Dijkstra’s algorithm.",
+    "A sea route is a graph problem. SeaRoute Navigator puts it on an interactive map so users can compare cost and travel time, build routes across multiple ports, and book cargo.",
   "magical-pet":
     "A fantasy setting becomes a practical exploration of object-oriented programming. Distinct pet types share a common foundation while expressing their own behavior through polymorphism.",
 };
@@ -39,14 +56,26 @@ export default function ProjectDetail({ id }: { id: string }) {
               <dt>TECHNOLOGIES</dt>
               <dd>{project.technologies.join(" / ")}</dd>
             </div>
-            <div>
-              <dt>EXPLORE THE CODE</dt>
-              <dd>
-                <a href={project.github} target="_blank" rel="noreferrer">
-                  GitHub repository <ArrowUpRight size={16} />
-                </a>
-              </dd>
-            </div>
+            {project.github && (
+              <div>
+                <dt>EXPLORE THE CODE</dt>
+                <dd>
+                  <a href={project.github} target="_blank" rel="noreferrer">
+                    GitHub repository <ArrowUpRight size={16} />
+                  </a>
+                </dd>
+              </div>
+            )}
+            {project.demo && project.demo !== "#" && (
+              <div>
+                <dt>LIVE EXPERIENCE</dt>
+                <dd>
+                  <a href={project.demo} target="_blank" rel="noreferrer">
+                    Open live project <ArrowUpRight size={16} />
+                  </a>
+                </dd>
+              </div>
+            )}
           </dl>
         </Reveal>
       </section>
@@ -132,7 +161,7 @@ export default function ProjectDetail({ id }: { id: string }) {
       )}
       <section className="next-project">
         <span className="eyebrow">
-          NEXT IN THE COLLECTION / 0{((index + 1) % projects.length) + 1}
+          NEXT IN THE COLLECTION / {String(((index + 1) % projects.length) + 1).padStart(2, "0")}
         </span>
         <Link href={`/work/${next.id}`}>
           {next.title}
