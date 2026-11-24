@@ -2044,6 +2044,14 @@ html[data-motion="off"] *::after {
   letter-spacing: -0.04em;
   margin-bottom: 17px;
 }
+.journey-project-link svg {
+  display: inline-block;
+  vertical-align: middle;
+}
+.journey-project-link:hover,
+.journey-project-link:focus-visible {
+  color: var(--orange);
+}
 .journey-item p {
   font-size: 13px;
   color: var(--muted);

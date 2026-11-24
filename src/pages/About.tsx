@@ -7,8 +7,16 @@ import {
   type Skill,
 } from "@/components/sections/skills/skills.data";
 import { timelineItems } from "@/data/experience.data";
+import { projects } from "@/data/projects.data";
 import { Reveal, useMotionSettings } from "@/components/studio/Motion";
 import { ArrowLink } from "@/components/studio/Shell";
+
+const timelineLabels = {
+  education: "Education",
+  project: "Project",
+  work: "Experience",
+};
+
 const principles = [
   {
     title: "Architecture first.",
@@ -190,8 +198,10 @@ export default function About() {
             <em>I build things.</em>
           </h2>
           <p>
-            I’m a Software Engineering student at FAST-NUCES, Pakistan, with a
-            strong foundation in C++, Python, and full-stack web development.
+            I’m a Software Engineering student at FAST-NUCES in Pakistan. I
+            build full-stack applications and work on AI and machine learning,
+            from study tools with cited answers to models that predict engine
+            life from simulated sensor data.
           </p>
           <p>
             I approach every project, whether a university assignment, a custom
@@ -250,10 +260,18 @@ export default function About() {
               <span className="journey-date">{t.date}</span>
               <div>
                 <span className="eyebrow">
-                  {t.type === "education" ? "EDUCATION" : "PROJECT"} /{" "}
+                  {timelineLabels[t.type].toUpperCase()} /{" "}
                   {t.organization}
                 </span>
-                <h3>{t.title}</h3>
+                <h3>
+                  {projects.some((project) => project.id === t.id) ? (
+                    <Link href={`/work/${t.id}`} className="journey-project-link">
+                      {t.title} <ArrowUpRight size={18} aria-hidden="true" />
+                    </Link>
+                  ) : (
+                    t.title
+                  )}
+                </h3>
                 <p>{t.description}</p>
                 <div className="journey-tags">
                   {t.technologies?.map((tag) => (

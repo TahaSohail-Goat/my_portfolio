@@ -1,7 +1,9 @@
 import { lazy, Suspense, useState } from "react";
-import { RotateCcw, ArrowUpRight } from "lucide-react";
+import { RotateCcw, ArrowUpRight, Crosshair } from "lucide-react";
 import { Link } from "wouter";
 import { Reveal, useMotionSettings } from "@/components/studio/Motion";
+import { SignalRelay } from "@/components/studio/SignalRelay";
+import "./arena.css";
 const Sculpture = lazy(() => import("@/components/studio/Sculpture"));
 export default function Lab() {
   const [exploded, setExploded] = useState(0.35),
@@ -31,12 +33,26 @@ export default function Lab() {
               <em>More play.</em>
             </h1>
             <p className="page-intro">
-              An interactive study in form, light, and motion. Make it your own.
+              Play the arena, try a quick signal challenge, or explore the 3D sculpture.
             </p>
           </div>
         </Reveal>
       </section>
-      <section className="lab-workbench">
+      <section className="arena-launch" aria-labelledby="arena-launch-title">
+        <div className="arena-launch-copy">
+          <span>3D tactical arena</span>
+          <h2 id="arena-launch-title">Relay <em>Sector.</em></h2>
+          <p>Two objective sites. Two teams of three. Buy your loadout and fight to win five rounds against bots.</p>
+          <Link href="/lab/arena" className="arena-primary">
+            Play Relay Sector <ArrowUpRight size={20} />
+          </Link>
+        </div>
+        <div className="arena-launch-mark" aria-hidden="true">
+          <Crosshair strokeWidth={0.7} />
+        </div>
+      </section>
+      <SignalRelay />
+      <section className="lab-workbench" id="sculpture-lab">
         <div className="lab-viewport">
           <div className="lab-viewport-top">
             <span>EXPERIMENT 001</span>

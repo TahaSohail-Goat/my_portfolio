@@ -1,11 +1,9 @@
 import { Download, Printer, ArrowUpRight } from "lucide-react";
 import { Link } from "wouter";
-import { projects } from "@/data/projects.data";
-import { timelineItems } from "@/data/experience.data";
+import { resumeEducation, resumeProjects } from "@/data/resume.data";
 import { SKILL_CATEGORIES } from "@/components/sections/skills/skills.data";
 import { Reveal } from "@/components/studio/Motion";
 export default function Resume() {
-  const education = timelineItems.find((t) => t.type === "education")!;
   return (
     <div className="resume-page">
       <section className="page-header resume-header">
@@ -73,20 +71,20 @@ export default function Resume() {
             <section>
               <h3>Education</h3>
               <div className="resume-entry">
-                <span>{education.date}</span>
+                <span>{resumeEducation.date}</span>
                 <h4>Bachelor of Science in Software Engineering</h4>
                 <p className="resume-org">
                   FAST National University of Computer and Emerging Sciences,
                   Pakistan
                 </p>
-                <p>{education.description}</p>
+                <p>{resumeEducation.description}</p>
               </div>
             </section>
             <section>
               <h3>Selected projects</h3>
-              {projects.map((p) => (
+              {resumeProjects.map((p) => (
                 <div className="resume-entry" key={p.id}>
-                  <span>{p.context ?? p.category}</span>
+                  <span>{p.date} / Academic project</span>
                   <h4>
                     <Link href={`/work/${p.id}`}>
                       {p.title}
@@ -95,7 +93,7 @@ export default function Resume() {
                   </h4>
                   <p>{p.description}</p>
                   <ul>
-                    {p.highlights?.map((h) => (
+                    {p.highlights.map((h) => (
                       <li key={h}>{h}</li>
                     ))}
                   </ul>

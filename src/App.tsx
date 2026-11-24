@@ -8,6 +8,7 @@ const Work = lazy(() => import("@/pages/Work"));
 const ProjectDetail = lazy(() => import("@/pages/ProjectDetail"));
 const About = lazy(() => import("@/pages/About"));
 const Lab = lazy(() => import("@/pages/Lab"));
+const Arena = lazy(() => import("@/pages/Arena"));
 const Contact = lazy(() => import("@/pages/Contact"));
 const Resume = lazy(() => import("@/pages/Resume"));
 const NotFound = lazy(() => import("@/pages/not-found"));
@@ -31,6 +32,7 @@ export default function App() {
                   {(params) => <ProjectDetail id={params.id} />}
                 </Route>
                 <Route path="/about" component={About} />
+                <Route path="/lab/arena" component={Arena} />
                 <Route path="/lab" component={Lab} />
                 <Route path="/contact" component={Contact} />
                 <Route path="/resume" component={Resume} />

@@ -249,7 +249,7 @@ function Manifesto() {
         <p>
           Software Engineering student at FAST-NUCES.
           <br />
-          C++, Python, and the modern web.
+          Full-stack apps, applied AI, and machine learning.
         </p>
         <Link href="/about">
           THE PERSON BEHIND THE CODE <ArrowUpRight size={17} />
